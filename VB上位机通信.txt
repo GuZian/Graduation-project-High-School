@@ -1,0 +1,83 @@
+
+'状态判断
+Private Sub Judgement()
+
+    If Form_Loaded = False Then Exit Sub
+   
+    If MSComm1.PortOpen = False Then
+       MSComm1.PortOpen = True
+    End If
+  
+    If centerA_Col < 20 Then
+  
+      MSComm1.OutBufferCount = 0
+      MSComm1.Output = Chr(CInt(1)) '向单片机发送数据
+    
+    ElseIf centerA_Col >= 20 And centerA_Col < 70 Then
+  
+      MSComm1.OutBufferCount = 0
+      MSComm1.Output = Chr(CInt(2)) '向单片机发送数据
+    
+    ElseIf centerA_Col >= 70 And centerA_Col < 110 Then
+  
+      MSComm1.OutBufferCount = 0
+      MSComm1.Output = Chr(CInt(3)) '向单片机发送数据
+    
+    ElseIf centerA_Col >= 110 And centerA_Col < 140 Then
+  
+      MSComm1.OutBufferCount = 0
+      MSComm1.Output = Chr(CInt(4)) '向单片机发送数据
+    
+    ElseIf centerA_Col >= 140 And centerA_Col <= 160 Then
+  
+      MSComm1.OutBufferCount = 0
+      MSComm1.Output = Chr(CInt(5)) '向单片机发送数据
+      
+    ElseIf centerA_Col > 160 And centerA_Col <= 190 Then
+  
+      MSComm1.OutBufferCount = 0
+      MSComm1.Output = Chr(CInt(6)) '向单片机发送数据
+    
+    ElseIf centerA_Col > 190 And centerA_Col <= 230 Then
+  
+      MSComm1.OutBufferCount = 0
+      MSComm1.Output = Chr(CInt(7)) '向单片机发送数据
+    
+    ElseIf centerA_Col > 230 And centerA_Col <= 280 Then
+  
+      MSComm1.OutBufferCount = 0
+      MSComm1.Output = Chr(CInt(8)) '向单片机发送数据
+    
+    ElseIf centerA_Col > 280 Then
+  
+      MSComm1.OutBufferCount = 0
+      MSComm1.Output = Chr(CInt(9)) '向单片机发送数据
+    
+    End If
+
+End Sub
+
+'通讯模块初始化
+Private Sub Pre_Transmission()
+
+    MSComm1.CommPort = 12 '设置串口号，由单片机决定
+    
+    MSComm1.Settings = "38400,N,8,1" '设置波特率（与单片机相同）、奇偶校验，数据位、停止位
+    
+    MSComm1.InBufferSize = 50 '获得或接受缓冲区的大小，字节数为单位
+    
+    MSComm1.InBufferCount = 0
+    
+    MSComm1.InputMode = comInputModeBinary '二进制方式
+    
+    MSComm1.RThreshold = 1 '设置要接受的字符数
+    
+    MSComm1.InputLen = 0 '设置从输入属性从缓冲区读取的数据
+    
+    If MSComm1.PortOpen = False Then
+    
+       MSComm1.PortOpen = True '打开串口
+       
+    End If
+    
+End Sub
